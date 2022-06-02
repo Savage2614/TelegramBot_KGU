@@ -32,7 +32,7 @@ async def cmd_phys(message: types.Message):
     ]
     keyboard = types.InlineKeyboardMarkup(row_width=1)
     keyboard.add(*buttons)
-    await message.answer("👇Выберите профильные предметы👇", reply_markup=keyboard)
+    await message.answer("Выберите профильные предметы", reply_markup=keyboard)
 
 
 # Math
@@ -148,7 +148,7 @@ async def cmd_menu_items(message: types.Message):
     buttons = ["first", "second", "third", "chetvertyii",
                "pyatyi", "shestoi", "🔄Назад🔄"]
     keyboard.add(*buttons)
-    await message.answer("⬇👨🏻‍🎓Выберите специальность магистратуры👨🏻‍🎓⬇", reply_markup=keyboard)
+    await message.answer("👨🏻‍🎓Выберите специальность магистратуры👨🏻‍🎓", reply_markup=keyboard)
 
 
 # Doctoral
@@ -158,7 +158,7 @@ async def cmd_menu_items(message: types.Message):
     buttons = ["first1", "second2", "third3", "chetvertyii4",
                "pyatyi5", "shestoi6", "🔄Назад🔄"]
     keyboard.add(*buttons)
-    await message.answer("⬇👨‍🔬Выберите специальность докторантуры👨‍🔬⬇", reply_markup=keyboard)
+    await message.answer("👨‍🔬Выберите специальность докторантуры👨‍🔬", reply_markup=keyboard)
 
 
 # GrantsAndDiscount
@@ -183,7 +183,14 @@ async def cmd_menu(message: types.Message):
                "🏢Колледж ЕНТ Специальности🏢", "👨🏻‍🎓Специальности Магистратуры👨🏻‍🎓",
                "👨‍🔬Специальности Докторантуры👨‍🔬"]
     keyboard.add(*buttons)
-    await message.answer("Здравствуйте, Коркыт Ата бот приветствует вас🙋‍♂️\n⬇Выберите действие⬇", reply_markup=keyboard)
+    await message.answer("Здравствуйте, Коркыт Ата бот приветствует вас🙋‍♂️\nВыберите действие",
+                         reply_markup=keyboard)
+
+
+# Ask a Question
+@dp.message_handler(Text(contains="вопрос", ignore_case=True))
+async def cmd_ask_ques(message: types.Message):
+    await message.answer("<a href='http://wa.me/+77029224458'><b>Напишите нам на WhatsApp</b></a>", parse_mode='html')
 
 
 @dp.message_handler(Text(contains="предметы", ignore_case=True))
@@ -204,15 +211,18 @@ async def cmd_back(message: types.Message):
                "🏢Колледж ЕНТ Специальности🏢", "👨🏻‍🎓Специальности Магистратуры👨🏻‍🎓",
                "👨‍🔬Специальности Докторантуры👨‍🔬"]
     keyboard.add(*buttons)
-    await message.answer("Здравствуйте, Коркыт Ата бот приветствует вас🙋‍♂️\n⬇Выберите действие⬇", reply_markup=keyboard)
+    await message.answer("Здравствуйте, Коркыт Ата бот приветствует вас🙋‍♂️\nВыберите действие",
+                         reply_markup=keyboard)
 
 
 def request(message):
     cur.execute(
-        f"SELECT groups.nomer, groups.name, year_2020.grant, year_2020.jk, year_2020.ak FROM groups JOIN year_2020 ON groups.nomer = year_2020.group_nomer WHERE groups.subject = '{message}' ORDER BY groups.nomer ASC;")
+        f"SELECT groups.nomer, groups.name, year_2020.grant, year_2020.jk, year_2020.ak FROM groups JOIN year_2020 ON "
+        f"groups.nomer = year_2020.group_nomer WHERE groups.subject = '{message}' ORDER BY groups.nomer ASC;")
     data_groups = cur.fetchall()
     cur.execute(
-        f"SELECT spec.group_nomer, spec.name FROM spec JOIN groups ON groups.nomer = spec.group_nomer WHERE subject = '{message}' ORDER BY spec.group_nomer ASC;")
+        f"SELECT spec.group_nomer, spec.name FROM spec JOIN groups ON groups.nomer = spec.group_nomer WHERE subject = "
+        f"'{message}' ORDER BY spec.group_nomer ASC;")
     data_spec = cur.fetchall()
     text = ''
     for group in data_groups:

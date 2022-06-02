@@ -27,12 +27,12 @@ logging.basicConfig(level=logging.INFO)
 @dp.message_handler(lambda message: 'физ' in message.text.lower() and '-' not in message.text.lower())
 async def cmd_phys(message: types.Message):
     buttons = [
-        types.InlineKeyboardButton(text="Физика-Математика", callback_data='Физика-Математика'),
-        types.InlineKeyboardButton(text="Физика-Химия", callback_data='Физика-Химия'),
+        types.InlineKeyboardButton(text="Физика-Математика", callback_data='phys_math'),
+        types.InlineKeyboardButton(text="Физика-Химия", callback_data='phys_chem'),
     ]
     keyboard = types.InlineKeyboardMarkup(row_width=1)
     keyboard.add(*buttons)
-    await message.answer("Выберите профильные предметы", reply_markup=keyboard)
+    await message.answer("Выберите один профильный предмет", reply_markup=keyboard)
 
 
 # Math
@@ -40,86 +40,86 @@ async def cmd_phys(message: types.Message):
 @dp.message_handler(lambda message: 'мат' in message.text.lower() and '-' not in message.text.lower())
 async def cmd_math(message: types.Message):
     buttons = [
-        types.InlineKeyboardButton(text="Физика-Математика", callback_data='Физика-Математика'),
-        types.InlineKeyboardButton(text="Математика-География", callback_data='Математика-География'),
+        types.InlineKeyboardButton(text="Физика-Математика", callback_data='phys_math'),
+        types.InlineKeyboardButton(text="Математика-География", callback_data='math_geo'),
     ]
     keyboard = types.InlineKeyboardMarkup(row_width=1)
     keyboard.add(*buttons)
-    await message.answer("Выберите профильные предметы", reply_markup=keyboard)
+    await message.answer("Выберите один профильный предмет", reply_markup=keyboard)
 
 
 # Biology
 @dp.message_handler(lambda message: 'био' in message.text.lower())
 async def cmd_bio(message: types.Message):
     buttons = [
-        types.InlineKeyboardButton(text="Биология-География", callback_data='Биология-География'),
-        types.InlineKeyboardButton(text="Химия-Биология", callback_data='Химия-Биология'),
+        types.InlineKeyboardButton(text="Биология-География", callback_data='bio_geo'),
+        types.InlineKeyboardButton(text="Химия-Биология", callback_data='chem_bio'),
     ]
     keyboard = types.InlineKeyboardMarkup(row_width=1)
     keyboard.add(*buttons)
-    await message.answer("Выбери", reply_markup=keyboard)
+    await message.answer("Выберите один профильный предмет", reply_markup=keyboard)
 
 
 # Chemistry
 @dp.message_handler(lambda message: 'хим' in message.text.lower())
 async def cmd_chem(message: types.Message):
     buttons = [
-        types.InlineKeyboardButton(text="Физика-Химия", callback_data='Физика-Химия'),
-        types.InlineKeyboardButton(text="Химия-Биология", callback_data='Химия-Биология'),
+        types.InlineKeyboardButton(text="Физика-Химия", callback_data='phys_chem'),
+        types.InlineKeyboardButton(text="Химия-Биология", callback_data='chem_bio'),
     ]
     keyboard = types.InlineKeyboardMarkup(row_width=1)
     keyboard.add(*buttons)
-    await message.answer("Выбери", reply_markup=keyboard)
+    await message.answer("Выберите один профильный предмет", reply_markup=keyboard)
 
 
 # Geography
 @dp.message_handler(lambda message: 'гео' in message.text.lower())
 async def cmd_geo(message: types.Message):
     buttons = [
-        types.InlineKeyboardButton(text="Биология-География", callback_data='Биология-География'),
-        types.InlineKeyboardButton(text="География-Всемирная История", callback_data='География-Всемирная История'),
-        types.InlineKeyboardButton(text="География-Английский", callback_data='География-Английский'),
-        types.InlineKeyboardButton(text="Математика-География", callback_data='Математика-География'),
+        types.InlineKeyboardButton(text="Биология-География", callback_data='bio_geo'),
+        types.InlineKeyboardButton(text="География-Всемирная История", callback_data='geo_hist'),
+        types.InlineKeyboardButton(text="География-Английский", callback_data='geo_eng'),
+        types.InlineKeyboardButton(text="Математика-География", callback_data='math_geo'),
     ]
     keyboard = types.InlineKeyboardMarkup(row_width=1)
     keyboard.add(*buttons)
-    await message.answer("Выбери", reply_markup=keyboard)
+    await message.answer("Выберите один профильный предмет", reply_markup=keyboard)
 
 
 # History
 @dp.message_handler(lambda message: 'истор' in message.text.lower())
 async def cmd_history(message: types.Message):
     buttons = [
-        types.InlineKeyboardButton(text="География-Всемирная История", callback_data='География-Всемирная История'),
+        types.InlineKeyboardButton(text="География-Всемирная История", callback_data='geo_hist'),
         types.InlineKeyboardButton(text="Всемирная История-Человек.Общество.Право",
-                                   callback_data='Всемирная История-ЧОП'),
+                                   callback_data='hist_hsl'),
 
     ]
     keyboard = types.InlineKeyboardMarkup(row_width=1)
     keyboard.add(*buttons)
-    await message.answer("Выбери", reply_markup=keyboard)
+    await message.answer("Выберите один профильный предмет", reply_markup=keyboard)
 
 
 # RusLang
 @dp.message_handler(lambda message: 'русс' in message.text.lower())
 async def cmd_rus_lang(message: types.Message):
     buttons = [
-        types.InlineKeyboardButton(text="Русский Язык-Русская Литература", callback_data='РусЯз-РусЛит'),
+        types.InlineKeyboardButton(text="Русский Язык-Русская Литература", callback_data='rulang_rulit'),
     ]
     keyboard = types.InlineKeyboardMarkup(row_width=1)
     keyboard.add(*buttons)
-    await message.answer("Выбери", reply_markup=keyboard)
+    await message.answer("Выберите один профильный предмет", reply_markup=keyboard)
 
 
 # KZLang
 @dp.message_handler(lambda message: 'казах' in message.text.lower())
 async def cmd_kz_lang(message: types.Message):
     buttons = [
-        types.InlineKeyboardButton(text="Казахский Язык-Казахская Литература", callback_data='КазЯз-КазЛит'),
+        types.InlineKeyboardButton(text="Казахский Язык-Казахская Литература", callback_data='kzlang_kzlit'),
     ]
     keyboard = types.InlineKeyboardMarkup(row_width=1)
     keyboard.add(*buttons)
-    await message.answer("Выбери", reply_markup=keyboard)
+    await message.answer("Выберите один профильный предмет", reply_markup=keyboard)
 
 
 # HSL
@@ -127,11 +127,11 @@ async def cmd_kz_lang(message: types.Message):
 async def cmd_hsl(message: types.Message):
     buttons = [
         types.InlineKeyboardButton(text="Всемирная История-Человек.Общество.Право",
-                                   callback_data='Всемирная История-ЧОП'),
+                                   callback_data='hist_hsl'),
     ]
     keyboard = types.InlineKeyboardMarkup(row_width=1)
     keyboard.add(*buttons)
-    await message.answer("Выбери", reply_markup=keyboard)
+    await message.answer("Выберите один профильный предмет", reply_markup=keyboard)
 
 
 # Payment
@@ -190,7 +190,14 @@ async def cmd_menu(message: types.Message):
 # Ask a Question
 @dp.message_handler(Text(contains="вопрос", ignore_case=True))
 async def cmd_ask_ques(message: types.Message):
-    await message.answer("<a href='http://wa.me/+77029224458'><b>Напишите нам на WhatsApp</b></a>", parse_mode='html')
+    buttons = [
+        types.InlineKeyboardButton(text="Напишите нам на WhatsApp", callback_data='100',
+                                   url='http://wa.me/+77029224458'),
+    ]
+    keyboard = types.InlineKeyboardMarkup()
+    keyboard.add(*buttons)
+    await message.answer("<a href='http://wa.me/+77029224458'><b>Напишите нам на WhatsApp</b></a>", parse_mode='html',
+                         reply_markup=keyboard)
 
 
 @dp.message_handler(Text(contains="предметы", ignore_case=True))

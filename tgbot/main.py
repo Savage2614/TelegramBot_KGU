@@ -93,7 +93,19 @@ async def cmd_history(message: types.Message):
         types.InlineKeyboardButton(text="География-Всемирная История", callback_data='geo_hist'),
         types.InlineKeyboardButton(text="Всемирная История-Человек.Общество.Право",
                                    callback_data='hist_hsl'),
+        types.InlineKeyboardButton(text="Английский Язык-Всемирная История", callback_data='eng_hist'),
+    ]
+    keyboard = types.InlineKeyboardMarkup(row_width=1)
+    keyboard.add(*buttons)
+    await message.answer("Выберите один профильный предмет", reply_markup=keyboard)
 
+
+# EnglishLanguage
+@dp.message_handler(lambda message: 'англ' in message.text.lower())
+async def cmd_eng_lang(message: types.Message):
+    buttons = [
+        types.InlineKeyboardButton(text="Английский Язык-Всемирная История", callback_data='eng_hist'),
+        types.InlineKeyboardButton(text="География-Английский", callback_data='geo_eng'),
     ]
     keyboard = types.InlineKeyboardMarkup(row_width=1)
     keyboard.add(*buttons)

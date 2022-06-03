@@ -22,6 +22,15 @@ dp = Dispatcher(bot)
 logging.basicConfig(level=logging.INFO)
 
 
+# StartCommand
+@dp.message_handler(commands="start")
+async def cmd_start(message: types.Message):
+    await message.answer("Список доступных комманд: \n/ru \n/kz \n/menu\nЧто бы не писать команды вручную, мы добавили "
+                         "кнопку слева от клавиатуры. Нажав на нее вы сможете выполнять эти команды.\nТак же наш бот "
+                         "поможет вам узнать информацию о том или ином профильном предмете. Для этого достаточно "
+                         "нажать на соответвующую кнопку, или написать название предмета")
+
+
 # Physic
 @dp.message_handler(lambda message: 'физ' in message.text.lower())
 @dp.message_handler(lambda message: 'физ' in message.text.lower() and '-' not in message.text.lower())
@@ -93,16 +102,11 @@ async def cmd_history(message: types.Message):
         types.InlineKeyboardButton(text="География-Всемирная История", callback_data='geo_hist'),
         types.InlineKeyboardButton(text="Всемирная История-Человек.Общество.Право",
                                    callback_data='hist_hsl'),
-<<<<<<< HEAD
         types.InlineKeyboardButton(text="Английский Язык-Всемирная История", callback_data='eng_hist'),
-=======
-
->>>>>>> c3f8da565f915a449f535de85f7cf9f96dd3c48c
     ]
     keyboard = types.InlineKeyboardMarkup(row_width=1)
     keyboard.add(*buttons)
     await message.answer("Выберите один профильный предмет", reply_markup=keyboard)
-<<<<<<< HEAD
 
 
 # EnglishLanguage
@@ -115,8 +119,6 @@ async def cmd_eng_lang(message: types.Message):
     keyboard = types.InlineKeyboardMarkup(row_width=1)
     keyboard.add(*buttons)
     await message.answer("Выберите один профильный предмет", reply_markup=keyboard)
-=======
->>>>>>> c3f8da565f915a449f535de85f7cf9f96dd3c48c
 
 
 # RusLang
@@ -161,7 +163,7 @@ async def cmd_menu_items(message: types.Message):
 
 
 # Magistracy
-@dp.message_handler(Text(contains="магистр", ignore_case=True))
+@dp.message_handler(lambda message: 'магистр' in message.text.lower())
 async def cmd_menu_items(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
     buttons = ["first", "second", "third", "chetvertyii",
@@ -171,7 +173,7 @@ async def cmd_menu_items(message: types.Message):
 
 
 # Doctoral
-@dp.message_handler(Text(contains="доктор", ignore_case=True))
+@dp.message_handler(lambda message: 'доктор' in message.text.lower())
 async def cmd_menu_items(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
     buttons = ["first1", "second2", "third3", "chetvertyii4",
@@ -181,7 +183,7 @@ async def cmd_menu_items(message: types.Message):
 
 
 # GrantsAndDiscount
-@dp.message_handler(Text(contains="Внутренние гранты и скидки", ignore_case=True))
+@dp.message_handler(lambda message: 'гранты' in message.text.lower() or 'скидки' in message.text.lower())
 async def cmd_menu_items(message: types.Message):
     buttons = [
         types.InlineKeyboardButton(text="100%", callback_data='100'),
@@ -195,9 +197,21 @@ async def cmd_menu_items(message: types.Message):
     await message.answer("Выберите скидку", reply_markup=keyboard)
 
 
+# Specialties
+@dp.message_handler(lambda message: 'специально' in message.text.lower())
+async def cmd_menu_items(message: types.Message):
+    buttons = [
+        types.InlineKeyboardButton(text="👨🏻‍🎓Магистратуры👨🏻‍🎓", callback_data='special_mag'),
+        types.InlineKeyboardButton(text="👨‍🔬Докторантуры👨‍🔬", callback_data='special_doc'),
+    ]
+    keyboard = types.InlineKeyboardMarkup(row_width=1)
+    keyboard.add(*buttons)
+    await message.answer("Выберите специальности:", reply_markup=keyboard)
+
+
 @dp.message_handler(commands="menu")
 async def cmd_menu(message: types.Message):
-    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
     buttons = ["📚Предметы📚", "💰Оплата💰", "❓Задать вопрос❓", "📋Внутренние гранты и скидки📋",
                "🏢Колледж ЕНТ Специальности🏢", "👨🏻‍🎓Специальности Магистратуры👨🏻‍🎓",
                "👨‍🔬Специальности Докторантуры👨‍🔬", "🗺Узнать расположения корпусов🗺"]
@@ -207,7 +221,7 @@ async def cmd_menu(message: types.Message):
 
 
 # Ask a Question
-@dp.message_handler(Text(contains="вопрос", ignore_case=True))
+@dp.message_handler(lambda message: 'вопрос' in message.text.lower() or 'спрос' in message.text.lower())
 async def cmd_ask_ques(message: types.Message):
     buttons = [
         types.InlineKeyboardButton(text="Напишите нам на WhatsApp", callback_data='100',
@@ -220,10 +234,10 @@ async def cmd_ask_ques(message: types.Message):
 
 
 # GeolocationButton
-@dp.message_handler(Text(contains="расположен", ignore_case=True))
+@dp.message_handler(lambda message: 'расположение' in message.text.lower() or 'корпус' in message.text.lower())
 async def cmd_geolocation(message: types.Message):
     buttons = [
-        types.InlineKeyboardButton(text="Главный Корпус", url='https://goo.gl/maps/AEezyGb9xuAkNqzW6'),
+
         types.InlineKeyboardButton(text="1 Корпус", url="https://goo.gl/maps/xp3VypLLNsuLW8jEA"),
         types.InlineKeyboardButton(text="2 Корпус", url="https://goo.gl/maps/QE1pecsT7p7PMK4C9"),
         types.InlineKeyboardButton(text="3 Корпус", url="https://goo.gl/maps/odS2XEjmiYBR8pp59"),
@@ -233,8 +247,9 @@ async def cmd_geolocation(message: types.Message):
         types.InlineKeyboardButton(text="7 Корпус", url="https://goo.gl/maps/DLXiX1NEzUNMWgd7A"),
         # types.InlineKeyboardButton(text="8 Корпус", url=""),
         types.InlineKeyboardButton(text="9 Корпус", url="https://goo.gl/maps/WLbZkTRML7vxcGR78"),
+        types.InlineKeyboardButton(text="Главный Корпус", url='https://goo.gl/maps/AEezyGb9xuAkNqzW6'),
     ]
-    keyboard = types.InlineKeyboardMarkup(row_width=1)
+    keyboard = types.InlineKeyboardMarkup(row_width=2)
     keyboard.add(*buttons)
     await message.answer(text='Выберите корпус который вас интересует', reply_markup=keyboard)
 
@@ -288,7 +303,9 @@ def request(message):
 async def math_fiz(message: types.message, call: types.callback_query):
     await message.answer(request(message.text))
 
-
+@dp.message_handler()
+async def txt_none(message: types.Message):
+    await message.answer(text="Я не понимаю что вы написали🥶🥶🥶")
 if __name__ == "__main__":
     # Запуск бота
     executor.start_polling(dp, skip_updates=True)

@@ -93,11 +93,16 @@ async def cmd_history(message: types.Message):
         types.InlineKeyboardButton(text="География-Всемирная История", callback_data='geo_hist'),
         types.InlineKeyboardButton(text="Всемирная История-Человек.Общество.Право",
                                    callback_data='hist_hsl'),
+<<<<<<< HEAD
         types.InlineKeyboardButton(text="Английский Язык-Всемирная История", callback_data='eng_hist'),
+=======
+
+>>>>>>> c3f8da565f915a449f535de85f7cf9f96dd3c48c
     ]
     keyboard = types.InlineKeyboardMarkup(row_width=1)
     keyboard.add(*buttons)
     await message.answer("Выберите один профильный предмет", reply_markup=keyboard)
+<<<<<<< HEAD
 
 
 # EnglishLanguage
@@ -110,6 +115,8 @@ async def cmd_eng_lang(message: types.Message):
     keyboard = types.InlineKeyboardMarkup(row_width=1)
     keyboard.add(*buttons)
     await message.answer("Выберите один профильный предмет", reply_markup=keyboard)
+=======
+>>>>>>> c3f8da565f915a449f535de85f7cf9f96dd3c48c
 
 
 # RusLang
@@ -193,7 +200,7 @@ async def cmd_menu(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
     buttons = ["📚Предметы📚", "💰Оплата💰", "❓Задать вопрос❓", "📋Внутренние гранты и скидки📋",
                "🏢Колледж ЕНТ Специальности🏢", "👨🏻‍🎓Специальности Магистратуры👨🏻‍🎓",
-               "👨‍🔬Специальности Докторантуры👨‍🔬"]
+               "👨‍🔬Специальности Докторантуры👨‍🔬", "🗺Узнать расположения корпусов🗺"]
     keyboard.add(*buttons)
     await message.answer("Здравствуйте, Коркыт Ата бот приветствует вас🙋‍♂️\nВыберите действие",
                          reply_markup=keyboard)
@@ -212,6 +219,27 @@ async def cmd_ask_ques(message: types.Message):
                          reply_markup=keyboard)
 
 
+# GeolocationButton
+@dp.message_handler(Text(contains="расположен", ignore_case=True))
+async def cmd_geolocation(message: types.Message):
+    buttons = [
+        types.InlineKeyboardButton(text="Главный Корпус", url='https://goo.gl/maps/AEezyGb9xuAkNqzW6'),
+        types.InlineKeyboardButton(text="1 Корпус", url="https://goo.gl/maps/xp3VypLLNsuLW8jEA"),
+        types.InlineKeyboardButton(text="2 Корпус", url="https://goo.gl/maps/QE1pecsT7p7PMK4C9"),
+        types.InlineKeyboardButton(text="3 Корпус", url="https://goo.gl/maps/odS2XEjmiYBR8pp59"),
+        types.InlineKeyboardButton(text="4 Корпус", url="https://goo.gl/maps/mwcpoZ4R3aFbUQ8j6"),
+        types.InlineKeyboardButton(text="5 Корпус", url='https://goo.gl/maps/gFQ95qr8REu9uSNG6'),
+        types.InlineKeyboardButton(text="6 Корпус", url="https://goo.gl/maps/VhMHUtxPmj5WuHTp8"),
+        types.InlineKeyboardButton(text="7 Корпус", url="https://goo.gl/maps/DLXiX1NEzUNMWgd7A"),
+        # types.InlineKeyboardButton(text="8 Корпус", url=""),
+        types.InlineKeyboardButton(text="9 Корпус", url="https://goo.gl/maps/WLbZkTRML7vxcGR78"),
+    ]
+    keyboard = types.InlineKeyboardMarkup(row_width=1)
+    keyboard.add(*buttons)
+    await message.answer(text='Выберите корпус который вас интересует', reply_markup=keyboard)
+
+
+# ItemsButton
 @dp.message_handler(Text(contains="предметы", ignore_case=True))
 async def cmd_menu_items(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2, )
@@ -223,12 +251,13 @@ async def cmd_menu_items(message: types.Message):
     await message.answer("Выберите свои предметы", reply_markup=keyboard)
 
 
+# BackButton
 @dp.message_handler(Text(contains="назад", ignore_case=True))
 async def cmd_back(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
     buttons = ["📚Предметы📚", "💰Оплата💰", "❓Задать вопрос❓", "📋Внутренние гранты и скидки📋",
                "🏢Колледж ЕНТ Специальности🏢", "👨🏻‍🎓Специальности Магистратуры👨🏻‍🎓",
-               "👨‍🔬Специальности Докторантуры👨‍🔬"]
+               "👨‍🔬Специальности Докторантуры👨‍🔬", "🗺Узнать расположения корпусов🗺"]
     keyboard.add(*buttons)
     await message.answer("Здравствуйте, Коркыт Ата бот приветствует вас🙋‍♂️\nВыберите действие",
                          reply_markup=keyboard)
